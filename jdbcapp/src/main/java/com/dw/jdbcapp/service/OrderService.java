@@ -1,6 +1,7 @@
 package com.dw.jdbcapp.service;
 
 import com.dw.jdbcapp.model.Order;
+import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ public class OrderService {
 
     public List<Order> getAllOrders() {
         return orderRepository.getAllOrders();
+    }
+    public Order getOrderByNumber(String number) {
+        return orderRepository.getOrderByNumber(number);
     }
 }
 
