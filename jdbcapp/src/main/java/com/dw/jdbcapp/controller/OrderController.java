@@ -1,5 +1,6 @@
 package com.dw.jdbcapp.controller;
 
+import com.dw.jdbcapp.model.Employee;
 import com.dw.jdbcapp.model.Order;
 import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.service.OrderService;
@@ -22,5 +23,9 @@ public class OrderController {
     @GetMapping("/api/orders/{orderNumber}")
     public Order getOrderByNumber(@PathVariable String orderNumber) {
         return orderService.getOrderByNumber(orderNumber);
+    }
+    @GetMapping("/api/orders/{productNumber}/{customerId}")
+    public Order getOrderProductNumber (@PathVariable String productNumber, @PathVariable String customerId) {
+        return orderService.getOrderProductNumber (productNumber, customerId);
     }
 }

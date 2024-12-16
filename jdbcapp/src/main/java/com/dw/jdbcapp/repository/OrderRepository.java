@@ -1,5 +1,6 @@
 package com.dw.jdbcapp.repository;
 
+import com.dw.jdbcapp.model.Employee;
 import com.dw.jdbcapp.model.Order;
 import com.dw.jdbcapp.model.Product;
 import org.springframework.stereotype.Repository;
@@ -46,6 +47,30 @@ public class OrderRepository {
                 PreparedStatement pstmt = connection.prepareStatement(query)
         ){
             pstmt.setString(1, number);
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                while (resultSet.next()) {
+                    order.setOrderId(resultSet.getString("주문번호"));
+                    order.setCustomerId(resultSet.getString("고객번호"));
+                    order.setEmployeeId(resultSet.getString("사원번호"));
+                    order.setOrderDate(LocalDate.parse(resultSet.getString("주문일")));
+                    order.setRequestDate(LocalDate.parse(resultSet.getString("요청일")));
+                    order.setShippingDate(LocalDate.parse(resultSet.getString("발송일")));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return order;
+    }
+    public Order getOrderProductNumber(String number, String id) {
+        Order order = new Order();
+        String query = "select * from 제품" + "inner join 주문세부 on 제품.고객번호 = 주문세부.고객번호 where 제품번호 = ? and ?";
+        try (
+                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement pstmt = connection.prepareStatement(query)
+        ){
+            pstmt.setString(1, number);
+            pstmt.setString(1, id);
             try (ResultSet resultSet = pstmt.executeQuery()) {
                 while (resultSet.next()) {
                     order.setOrderId(resultSet.getString("주문번호"));

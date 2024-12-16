@@ -2,12 +2,10 @@ package com.dw.jdbcapp.controller;
 
 import com.dw.jdbcapp.dto.EmployeeDepartmentDTO;
 import com.dw.jdbcapp.model.Employee;
+import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -43,5 +41,9 @@ public class EmployeeController {
     @GetMapping("/api/employees/{departmentNumber}/{position}")
     public Employee getEmployeeByNumber(@PathVariable String departmentNumber, @PathVariable String position) {
         return employeeService.getEmployeeByNumber(departmentNumber, position);
+    }
+    @PostMapping("api/post/employee")
+    public Employee saveemployee(@RequestBody Employee employee) {
+        return employeeService.saveemployee(employee);
     }
 }

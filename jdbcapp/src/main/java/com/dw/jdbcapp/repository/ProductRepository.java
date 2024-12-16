@@ -62,4 +62,51 @@ public class ProductRepository {
         }
         return product;
     }
+    public Product saveProduct(Product product) {
+        System.out.println(product);
+        String query = "insert into 제품(제품번호, 제품명, 포장단위, 단가, 재고) " + "values (?, ?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, product.getProductId());
+            pstmt.setString(2, product.getProductName());
+            pstmt.setString(3, product.getPackageUnit());
+            pstmt.setDouble(4, product.getUnitPrice());
+            pstmt.setInt(5, product.getStock());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ;
+        return product;
+    }
+    public Product saveProductList(Product product) {
+        String query = "insert into 제품(제품번호, 제품명, 포장단위, 단가, 재고) " + "values (?, ?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, product.getProductId());
+            pstmt.setString(2, product.getProductName());
+            pstmt.setString(3, product.getPackageUnit());
+            pstmt.setDouble(4, product.getUnitPrice());
+            pstmt.setInt(5, product.getStock());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return product;
+    }
+    public Product updateProduct (Product product) {
+        String query = "update 제품 set 제품번호,제품명 = ?, ?  where 포장단위, 단가, 재고= ?, ?, ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, product.getProductId());
+            pstmt.setString(2, product.getProductName());
+            pstmt.setString(3, product.getPackageUnit());
+            pstmt.setDouble(4, product.getUnitPrice());
+            pstmt.setInt(5, product.getStock());
+            pstmt.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return product;
+    }
 }

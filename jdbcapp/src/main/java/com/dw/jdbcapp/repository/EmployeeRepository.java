@@ -1,6 +1,7 @@
 package com.dw.jdbcapp.repository;
 
 import com.dw.jdbcapp.model.Employee;
+import com.dw.jdbcapp.model.Product;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -100,7 +101,7 @@ public class EmployeeRepository {
 
     public Employee getEmployeeByNumber(String number,String position) {
         Employee employee = new Employee();
-        String query = "select * from 사원" + "inner join 부서 on 사원.부서번호 = 부서.부서번호 where 사원번호 = ? and ?";
+        String query = "select * from 사원" + "inner join 부서 on 사원.부서번호 = 부서.부서번호 where 부서번호 = ? and ?";
         try (
                 Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement pstmt = connection.prepareStatement(query)
@@ -127,6 +128,31 @@ public class EmployeeRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return employee;
+    }
+    public Employee saveemployee(Employee employee) {
+        String query = "insert into 사원(사원번호, 이름, 영문이름, 직위, 성별, 생일, 입사일, 주소, 도시, 지역, 집전화, 상사번호, 부서번호) "
+                + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, employee.getEmployeeId());
+            pstmt.setString(2, employee.getName());
+            pstmt.setString(3, employee.getEnglishName());
+            pstmt.setString(4, employee.getPosition());
+            pstmt.setString(5, employee.getGender());
+            pstmt.setString(6, employee.getBirthDate().toString());
+            pstmt.setString(7, employee.getHireDate().toString());
+            pstmt.setString(8, employee.getAddress());
+            pstmt.setString(9, employee.getCity());
+            pstmt.setString(10, employee.getRegion());
+            pstmt.setString(11, employee.getHomePhone());
+            pstmt.setString(12, employee.getSupervisorId());
+            pstmt.setString(13, employee.getDepartmentId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ;
         return employee;
     }
 }

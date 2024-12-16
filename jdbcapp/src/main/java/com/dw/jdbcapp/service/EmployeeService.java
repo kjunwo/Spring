@@ -2,6 +2,7 @@ package com.dw.jdbcapp.service;
 
 import com.dw.jdbcapp.dto.EmployeeDepartmentDTO;
 import com.dw.jdbcapp.model.Employee;
+import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,9 @@ public class EmployeeService {
     }
     public Employee getEmployeeByNumber(String number, String position) {
         return employeeRepository.getEmployeeByNumber(number, position);
+    }
+    public Employee saveemployee (Employee employee) {
+        return employeeRepository.saveemployee(employee);
     }
 }
 

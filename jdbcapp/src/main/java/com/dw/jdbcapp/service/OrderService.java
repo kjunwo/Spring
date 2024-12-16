@@ -1,5 +1,6 @@
 package com.dw.jdbcapp.service;
 
+import com.dw.jdbcapp.model.Employee;
 import com.dw.jdbcapp.model.Order;
 import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.repository.OrderRepository;
@@ -18,6 +19,9 @@ public class OrderService {
     }
     public Order getOrderByNumber(String number) {
         return orderRepository.getOrderByNumber(number);
+    }
+    public Order getOrderProductNumber (String number, String id) {
+        return orderRepository.getOrderProductNumber (number, id);
     }
 }
 
