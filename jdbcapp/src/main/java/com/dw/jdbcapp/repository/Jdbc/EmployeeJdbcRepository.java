@@ -1,7 +1,6 @@
-package com.dw.jdbcapp.repository;
+package com.dw.jdbcapp.repository.Jdbc;
 
 import com.dw.jdbcapp.model.Employee;
-import com.dw.jdbcapp.model.Product;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -10,7 +9,7 @@ import java.util.*;
 
 
 @Repository
-public class EmployeeRepository {
+public class EmployeeJdbcRepository {
     private static final String URL = "jdbc:mysql://localhost:3306/testdb";
     private static final String USER = "root";
     private static final String PASSWORD = "root";

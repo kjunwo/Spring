@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-//@RestController
-//public class OrderDetailsController {
-//    @Autowired
-//    OrderDetailService orderDetailService;
-//
-//    @GetMapping("/find-all-orderdetails")
-//    public List<OrderDetail> getAllOrderDetails(){
-//        return orderDetailService.getAllOrderDetails;
-//    }
-//
-//}
+@RestController
+public class OrderDetailsController {
+    @Autowired
+    OrderDetailService orderDetailService;
+
+    @GetMapping("/find-all-orderdetails")
+    public List<OrderDetail> getAllOrderDetails(){
+        return orderDetailService.getAllOrderDetails();
+    }
+
+}

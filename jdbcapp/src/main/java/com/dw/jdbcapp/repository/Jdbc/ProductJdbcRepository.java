@@ -1,19 +1,14 @@
-package com.dw.jdbcapp.repository;
+package com.dw.jdbcapp.repository.Jdbc;
 
-import com.dw.jdbcapp.model.Department;
-import com.dw.jdbcapp.model.Employee;
 import com.dw.jdbcapp.model.Product;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
-public class ProductRepository {
+public class ProductJdbcRepository {
     private static final String URL = "jdbc:mysql://localhost:3306/testdb";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
@@ -95,14 +90,14 @@ public class ProductRepository {
         return product;
     }
     public Product updateProduct (Product product) {
-        String query = "update 제품 set 제품번호,제품명 = ?, ?  where 포장단위, 단가, 재고= ?, ?, ?";
+        String query = "update 제품 set 제품명 = ?, 포장단위 = ?, 단가 = ?, 재고= ? where 제품번호 = ?";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, product.getProductId());
-            pstmt.setString(2, product.getProductName());
-            pstmt.setString(3, product.getPackageUnit());
-            pstmt.setDouble(4, product.getUnitPrice());
-            pstmt.setInt(5, product.getStock());
+            pstmt.setString(1, product.getProductName());
+            pstmt.setString(2, product.getPackageUnit());
+            pstmt.setDouble(3, product.getUnitPrice());
+            pstmt.setInt(4, product.getStock());
+            pstmt.setInt(5, product.getProductId());
             pstmt.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();
