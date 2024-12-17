@@ -1,6 +1,7 @@
 package com.dw.jdbcapp.repository.Jdbc;
 
 import com.dw.jdbcapp.model.Employee;
+import com.dw.jdbcapp.repository.iface.EmployeeRepository;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -9,11 +10,12 @@ import java.util.*;
 
 
 @Repository
-public class EmployeeJdbcRepository {
+public class EmployeeJdbcRepository implements EmployeeRepository {
     private static final String URL = "jdbc:mysql://localhost:3306/testdb";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
 
+    @Override
     public List<Employee> getAllEmployees() {
         List<Employee> employees = new ArrayList<>();
         String query = "select * from 사원";
@@ -44,7 +46,7 @@ public class EmployeeJdbcRepository {
         }
         return employees;
     }
-
+    @Override
     public Employee getEmployeeById(String id) {
         Employee employee = new Employee();
         String query = "select * from 사원 where 사원번호 = ?";
@@ -75,7 +77,7 @@ public class EmployeeJdbcRepository {
         }
         return employee;
     }
-
+    @Override
     public List<Map<String, Object>> getEmployeesWithDepartName() {
         String query = "select 이름, 입사일, 부서명 from 사원 " + "inner join 부서 on 사원.부서번호 = 부서.부서번호";
         List<Map<String, Object>> employees = new ArrayList<>();
@@ -97,7 +99,7 @@ public class EmployeeJdbcRepository {
         }
         return employees;
     }
-
+    @Override
     public Employee getEmployeeByNumber(String number,String position) {
         Employee employee = new Employee();
         String query = "select * from 사원" + "inner join 부서 on 사원.부서번호 = 부서.부서번호 where 부서번호 = ? and ?";
@@ -129,6 +131,7 @@ public class EmployeeJdbcRepository {
         }
         return employee;
     }
+    @Override
     public Employee saveemployee(Employee employee) {
         String query = "insert into 사원(사원번호, 이름, 영문이름, 직위, 성별, 생일, 입사일, 주소, 도시, 지역, 집전화, 상사번호, 부서번호) "
                 + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

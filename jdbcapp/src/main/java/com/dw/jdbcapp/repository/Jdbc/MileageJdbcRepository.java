@@ -1,6 +1,7 @@
 package com.dw.jdbcapp.repository.Jdbc;
 
 import com.dw.jdbcapp.model.MileGrade;
+import com.dw.jdbcapp.repository.iface.MileageRepository;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -8,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class MileageJdbcRepository {
+public class MileageJdbcRepository implements MileageRepository {
     private static final String URL = "jdbc:mysql://localhost:3306/testdb";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
 
+    @Override
     public List<MileGrade> getAllMileages() {
         List<MileGrade> mileGrades = new ArrayList<>();
         String query = "select * from 마일리지등급";

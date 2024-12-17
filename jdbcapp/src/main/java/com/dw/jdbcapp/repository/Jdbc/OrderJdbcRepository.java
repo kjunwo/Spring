@@ -1,6 +1,7 @@
 package com.dw.jdbcapp.repository.Jdbc;
 
 import com.dw.jdbcapp.model.Order;
+import com.dw.jdbcapp.repository.iface.OrderRepository;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -9,11 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class OrderJdbcRepository {
+public class OrderJdbcRepository implements OrderRepository {
     private static final String URL = "jdbc:mysql://localhost:3306/testdb";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
 
+    @Override
     public List<Order> getAllOrders() {
         List<Order> orders = new ArrayList<>();
         String query = "select * from 주문";
@@ -37,6 +39,7 @@ public class OrderJdbcRepository {
         }
         return orders;
     }
+    @Override
     public Order getOrderByNumber(String number) {
         Order order = new Order();
         String query = "select * from 주문 where 주문번호 = ?";
@@ -60,6 +63,7 @@ public class OrderJdbcRepository {
         }
         return order;
     }
+    @Override
     public Order getOrderProductNumber(String number, String id) {
         Order order = new Order();
         String query = "select * from 제품" + "inner join 주문세부 on 제품.고객번호 = 주문세부.고객번호 where 제품번호 = ? and ?";

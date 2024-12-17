@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api")
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
@@ -38,11 +39,11 @@ public class EmployeeController {
     public List<EmployeeDepartmentDTO> getEmployeesWithDepartName2() {
         return employeeService.getEmployeesWithDepartName2();
     }
-    @GetMapping("/api/employees/{departmentNumber}/{position}")
+    @GetMapping("/employees/{departmentNumber}/{position}")
     public Employee getEmployeeByNumber(@PathVariable String departmentNumber, @PathVariable String position) {
         return employeeService.getEmployeeByNumber(departmentNumber, position);
     }
-    @PostMapping("api/post/employee")
+    @PostMapping("/post/employee")
     public Employee saveemployee(@RequestBody Employee employee) {
         return employeeService.saveemployee(employee);
     }
