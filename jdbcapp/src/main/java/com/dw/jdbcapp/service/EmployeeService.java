@@ -1,6 +1,8 @@
 package com.dw.jdbcapp.service;
 
 import com.dw.jdbcapp.dto.EmployeeDepartmentDTO;
+import com.dw.jdbcapp.exception.InvalidRequestException;
+import com.dw.jdbcapp.exception.ResourceNotFoundException;
 import com.dw.jdbcapp.model.Employee;
 import com.dw.jdbcapp.repository.Jdbc.EmployeeJdbcRepository;
 import com.dw.jdbcapp.repository.iface.EmployeeRepository;
@@ -41,8 +43,12 @@ public class EmployeeService {
         }
         return employeeDepartmentDTOList;
     }
-    public Employee getEmployeeByNumber(String number, String position) {
-        return employeeRepository.getEmployeeByNumber(number, position);
+    public List<Employee> getEmployeeByNumber(String number, String position) {
+        List<Employee> employees = employeeRepository.getEmployeeByNumber(number, position);
+        if (employees.isEmpty()) {
+            throw new ResourceNotFoundException("직위 또는 사원번호가 없습니다: " + number + ", " + position);
+        }
+        return employees;
     }
     public Employee saveemployee (Employee employee) {
         return employeeRepository.saveemployee(employee);

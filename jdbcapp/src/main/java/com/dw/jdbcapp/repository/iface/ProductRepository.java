@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProductRepository {
     List<Product> getAllProducts();
-    public Product getProductByNumber(String number);
+    public Product getProductById(int number);
     public Product saveProduct(Product product);
     public Product updateProduct (Product product);
     public int deleteProduct(int id);

@@ -9,6 +9,6 @@ public interface EmployeeRepository {
     List<Employee> getAllEmployees();
     public Employee getEmployeeById(String id);
     public List<Map<String, Object>> getEmployeesWithDepartName();
-    public Employee getEmployeeByNumber(String number,String position);
+    public List<Employee> getEmployeeByNumber(String number,String position);
     public Employee saveemployee(Employee employee);
 }

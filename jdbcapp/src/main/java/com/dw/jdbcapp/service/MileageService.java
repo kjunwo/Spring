@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class MileageService {
     @Autowired
-    @Qualifier("MileageTemplateRepository")
+    @Qualifier("mileageTemplateRepository")
     MileageRepository mileageJdbcRepository;
 
     public List<MileGrade> getAllMileages() {

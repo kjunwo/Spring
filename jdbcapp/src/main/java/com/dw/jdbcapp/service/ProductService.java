@@ -1,5 +1,6 @@
 package com.dw.jdbcapp.service;
 
+import com.dw.jdbcapp.exception.InvalidRequestException;
 import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.repository.Jdbc.ProductJdbcRepository;
 import com.dw.jdbcapp.repository.iface.ProductRepository;
@@ -18,8 +19,12 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productRepository.getAllProducts();
     }
-    public Product getProductByNumber(String number) {
-        return productRepository.getProductByNumber(number);
+    public Product getProductById(int number) {
+        if (number < 0) {
+            throw new InvalidRequestException("존재하지 않는 제품번호: " + number);
+
+        }
+        return productRepository.getProductById(number);
     }
     public Product saveProduct (Product product) {
         return productRepository.saveProduct(product);

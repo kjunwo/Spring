@@ -4,6 +4,8 @@ import com.dw.jdbcapp.model.Department;
 import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,30 +18,36 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/find-all-products")
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return new ResponseEntity<>(productService.getAllProducts(),
+                HttpStatus.CREATED);
     }
     @GetMapping("/products/{productNumber}")
-    public Product getProductByNumber(@PathVariable String productNumber) {
-        return productService.getProductByNumber(productNumber);
+    public ResponseEntity<Product> getProductById(@PathVariable int productNumber) {
+        return new ResponseEntity<>(productService.getProductById(productNumber),
+                HttpStatus.CREATED);
     }
 
     @PostMapping("/post/product")
-    public Product saveProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
+        return new ResponseEntity<>(productService.saveProduct(product),
+                HttpStatus.CREATED);
     }
 
     @PostMapping("/post/productlist")
-    public List<Product> saveProductList
+    public ResponseEntity<List<Product>> saveProductList
             (@RequestBody List<Product> productList) {
-        return productService.saveProductList(productList);
+        return new ResponseEntity<>(productService.saveProductList(productList),
+                HttpStatus.CREATED);
     }
     @PutMapping("/put/product")
-    public Product updateProduct(@RequestBody Product product){
-        return productService.updateProduct(product);
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product){
+        return new ResponseEntity<>(productService.updateProduct(product),
+                HttpStatus.CREATED);
     }
     @DeleteMapping("/delete/product")
-    public String deleteProduct(@RequestParam int id) {
-        return "제품번호: " + productService.deleteProduct(id) + " 삭제됨";
+    public ResponseEntity<String> deleteProduct(@RequestParam int id) {
+        return new ResponseEntity<>("제품번호: " + productService.deleteProduct(id) + " 삭제됨",
+                HttpStatus.CREATED);
     }
 }

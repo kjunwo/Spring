@@ -37,14 +37,14 @@ public class ProductJdbcRepository implements ProductRepository {
         return products;
     }
     @Override
-    public Product getProductByNumber(String number) {
+    public Product getProductById(int number) {
         Product product = new Product();
         String query = "select * from 제품 where 제품번호 = ?";
         try (
                 Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement pstmt = connection.prepareStatement(query)
         ){
-            pstmt.setString(1, number);
+            pstmt.setInt(1, number);
             try (ResultSet resultSet = pstmt.executeQuery()) {
                 while (resultSet.next()) {
                     product.setProductId(resultSet.getInt("제품번호"));

@@ -5,6 +5,8 @@ import com.dw.jdbcapp.model.Order;
 import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,15 +21,18 @@ public class OrderController {
     OrderService orderService;
 
     @GetMapping("/find-all-orders")
-    public List<Order> getAllOrders(){
-        return orderService.getAllOrders();
+    public ResponseEntity<List<Order>> getAllOrders(){
+        return new ResponseEntity<>(orderService.getAllOrders(),
+                HttpStatus.OK);
     }
     @GetMapping("/orders/{orderNumber}")
-    public Order getOrderByNumber(@PathVariable String orderNumber) {
-        return orderService.getOrderByNumber(orderNumber);
+    public ResponseEntity<Order> getOrderByNumber(@PathVariable String orderNumber) {
+        return new ResponseEntity<>(orderService.getOrderByNumber(orderNumber),
+                HttpStatus.OK);
     }
     @GetMapping("/orders/{productNumber}/{customerId}")
-    public Order getOrderProductNumber (@PathVariable String productNumber, @PathVariable String customerId) {
-        return orderService.getOrderProductNumber (productNumber, customerId);
+    public ResponseEntity<Order> getOrderProductNumber (@PathVariable String productNumber, @PathVariable String customerId) {
+        return new ResponseEntity<>(orderService.getOrderProductNumber (productNumber, customerId),
+                HttpStatus.OK);
     }
 }
