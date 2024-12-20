@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface OrderRepository {
     List<Order> getAllOrders();
-    public Order getOrderByNumber(String number);
-    public List<Order> getOrderProductNumber(String number, String id);
+    Order getOrderByNumber(String number);
+    List<Order> getOrderProductNumber(String number, String id);
+    int saveOrder(Order order);
 }

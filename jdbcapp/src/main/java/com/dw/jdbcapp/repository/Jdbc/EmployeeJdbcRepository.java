@@ -2,6 +2,7 @@ package com.dw.jdbcapp.repository.Jdbc;
 
 import com.dw.jdbcapp.model.Employee;
 import com.dw.jdbcapp.repository.iface.EmployeeRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -159,6 +160,15 @@ public class EmployeeJdbcRepository implements EmployeeRepository {
         }
         ;
         return employee;
+    }
+
+//    @Override
+//    public ResponseEntity<List<Employee>> getEmployeeByDate(String date) {
+//        return null;
+//    }
+    @Override
+    public List<Employee> getEmployeeByDate(String date) {
+        return null;
     }
 }
 

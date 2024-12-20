@@ -3,6 +3,7 @@ package com.dw.jdbcapp.service;
 import com.dw.jdbcapp.dto.EmployeeDepartmentDTO;
 import com.dw.jdbcapp.exception.InvalidRequestException;
 import com.dw.jdbcapp.exception.ResourceNotFoundException;
+import com.dw.jdbcapp.model.Customer;
 import com.dw.jdbcapp.model.Employee;
 import com.dw.jdbcapp.repository.Jdbc.EmployeeJdbcRepository;
 import com.dw.jdbcapp.repository.iface.EmployeeRepository;
@@ -52,6 +53,9 @@ public class EmployeeService {
     }
     public Employee saveemployee (Employee employee) {
         return employeeRepository.saveemployee(employee);
+    }
+    public List<Employee> getEmployeeByDate(String date) {
+        return employeeRepository.getEmployeeByDate(date);
     }
 }
 

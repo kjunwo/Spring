@@ -56,4 +56,9 @@ public class EmployeeController {
         return new ResponseEntity<>(employeeService.saveemployee(employee),
                 HttpStatus.CONFLICT);
     }
+    @GetMapping("/employee/date/{date}")
+    public ResponseEntity<List<Employee>> getEmployeeByDate(@PathVariable String date) {
+        return new ResponseEntity<>(employeeService.getEmployeeByDate(date), HttpStatus.CONFLICT);
+    }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -106,5 +107,11 @@ public class EmployeeTemplateRepository implements EmployeeRepository {
                 employee.getSupervisorId(),
                 employee.getDepartmentId());
         return employee;
+    }
+
+    @Override
+    public List<Employee> getEmployeeByDate(String date){
+        String query = "select * from 사원 where 입사일 = ? ";
+        return jdbcTemplate.query(query, employeeRowMapper, date);
     }
 }
