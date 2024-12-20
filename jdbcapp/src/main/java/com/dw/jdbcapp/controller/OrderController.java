@@ -31,7 +31,7 @@ public class OrderController {
                 HttpStatus.OK);
     }
     @GetMapping("/orders/{productNumber}/{customerId}")
-    public ResponseEntity<Order> getOrderProductNumber (@PathVariable String productNumber, @PathVariable String customerId) {
+    public ResponseEntity<List<Order>> getOrderProductNumber (@PathVariable String productNumber, @PathVariable String customerId) {
         return new ResponseEntity<>(orderService.getOrderProductNumber (productNumber, customerId),
                 HttpStatus.OK);
     }

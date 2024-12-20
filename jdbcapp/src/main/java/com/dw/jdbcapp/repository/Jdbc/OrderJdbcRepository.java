@@ -64,8 +64,8 @@ public class OrderJdbcRepository implements OrderRepository {
         return order;
     }
     @Override
-    public Order getOrderProductNumber(String number, String id) {
-        Order order = new Order();
+    public List<Order> getOrderProductNumber(String number, String id) {
+        List<Order> orders = new ArrayList<>();
         String query = "select * from 제품" + "inner join 주문세부 on 제품.고객번호 = 주문세부.고객번호 where 제품번호 = ? and ?";
         try (
                 Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -75,17 +75,21 @@ public class OrderJdbcRepository implements OrderRepository {
             pstmt.setString(1, id);
             try (ResultSet resultSet = pstmt.executeQuery()) {
                 while (resultSet.next()) {
+                    Order order = new Order();
                     order.setOrderId(resultSet.getString("주문번호"));
                     order.setCustomerId(resultSet.getString("고객번호"));
                     order.setEmployeeId(resultSet.getString("사원번호"));
                     order.setOrderDate(LocalDate.parse(resultSet.getString("주문일")));
                     order.setRequestDate(LocalDate.parse(resultSet.getString("요청일")));
                     order.setShippingDate(LocalDate.parse(resultSet.getString("발송일")));
+
+                    orders.add(order);
+
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return order;
+        return orders;
     }
 }

@@ -50,7 +50,7 @@ public class OrderTemplateRepository implements OrderRepository {
 
     @Override
     public List<Order> getOrderProductNumber(String number, String id) {
-        String query = "select * from 제품" + "inner join 주문세부 on 제품.고객번호 = 주문세부.고객번호 where 제품번호 = ? and ?";
+        String query = "select * from 제품 where 제품번호 = ?  and 주문번호 = ?";
         return jdbcTemplate.query(query, orderRowMapper, number, id);
     }
 }

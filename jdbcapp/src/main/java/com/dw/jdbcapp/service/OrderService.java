@@ -25,8 +25,8 @@ public class OrderService {
     }
     public List<Order> getOrderProductNumber (String number, String id) {
         List<Order> order = orderRepository.getOrderProductNumber (number, id);
-        if () {
-            throw new InvalidRequestException("존재하지 않는 주문번호: " + number + " ," + id);
+        if (order.isEmpty()) {
+            throw new InvalidRequestException("제품번호 또는 주문번호가 존재하지 않습니다: " + number + " ," + id);
         }
         return order;
     }
