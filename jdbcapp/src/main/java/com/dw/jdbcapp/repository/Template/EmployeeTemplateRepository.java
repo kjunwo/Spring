@@ -1,9 +1,11 @@
 package com.dw.jdbcapp.repository.Template;
 
+import com.dw.jdbcapp.exception.InvalidRequestException;
 import com.dw.jdbcapp.exception.ResourceNotFoundException;
 import com.dw.jdbcapp.model.Employee;
 import com.dw.jdbcapp.repository.iface.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -111,7 +113,22 @@ public class EmployeeTemplateRepository implements EmployeeRepository {
 
     @Override
     public List<Employee> getEmployeeByDate(String date){
-        String query = "select * from 사원 where 입사일 = ? ";
+        String query = "select * from 사원 where 입사일 > ? ";
         return jdbcTemplate.query(query, employeeRowMapper, date);
+    }
+
+    @Override
+    public List<Employee> getEmployeeByHiredate(String hiredate) {
+        String query = "select * from 사원 where 입사일 = ?";
+        try {
+            LocalDate hiredate2 = LocalDate.parse(hiredate);
+            return jdbcTemplate.query(query, employeeRowMapper, hiredate2);
+        }catch (DataAccessException e) {
+            throw new InvalidRequestException("입력하신 입사일이 올바르지 않습니다: " + hiredate);
+        }
+    }
+    public List<Employee> getEmployeeByHiredate1() {
+        String query = "select * from 사원 order by 입사일 desc limit 1";
+        return jdbcTemplate.query(query, employeeRowMapper);
     }
 }

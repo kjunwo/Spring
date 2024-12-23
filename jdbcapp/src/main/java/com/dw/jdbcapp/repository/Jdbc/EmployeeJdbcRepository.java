@@ -170,5 +170,15 @@ public class EmployeeJdbcRepository implements EmployeeRepository {
     public List<Employee> getEmployeeByDate(String date) {
         return null;
     }
+
+    @Override
+    public List<Employee> getEmployeeByHiredate(String hiredate) {
+        return List.of();
+    }
+
+    @Override
+    public List<Employee> getEmployeeByHiredate1() {
+        return List.of();
+    }
 }
 

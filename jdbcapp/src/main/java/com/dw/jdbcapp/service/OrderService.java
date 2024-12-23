@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.sql.ClientInfoStatus;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -44,6 +47,10 @@ public class OrderService {
             orderDetailRepository.saveOrderDetail(data);
         }
         return orderRequestDTO;
+    }
+    public List<Order> updateOrderWithShippingDate(String id, String date) {
+        return orderRepository.updateOrderWithShippingDate(id, date);
+
     }
 }
 

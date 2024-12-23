@@ -1,9 +1,12 @@
 package com.dw.jdbcapp.repository.Template;
 
+import com.dw.jdbcapp.exception.InvalidRequestException;
 import com.dw.jdbcapp.exception.ResourceNotFoundException;
+import com.dw.jdbcapp.model.Employee;
 import com.dw.jdbcapp.model.Order;
 import com.dw.jdbcapp.repository.iface.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -32,6 +35,7 @@ public class OrderTemplateRepository implements OrderRepository {
             return order;
         }
     };
+
     @Override
     public List<Order> getAllOrders() {
         String query = "select * from 주문";
@@ -43,7 +47,7 @@ public class OrderTemplateRepository implements OrderRepository {
         String query = "select * from 주문 where 주문번호 = ?";
         try {
             return jdbcTemplate.queryForObject(query, orderRowMapper, number);
-        }catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("주문번호가 올바르지 않습니다: " + number);
         }
     }
@@ -65,4 +69,11 @@ public class OrderTemplateRepository implements OrderRepository {
                 order.getOrderDate().toString(),
                 order.getRequestDate().toString());
     }
+
+    @Override
+    public List<Order> updateOrderWithShippingDate(String id, String date) {
+        String query = "update 주문 ";
+        jdbcTemplate.update(query, orderRowMapper, id, date);
+    }
 }
+

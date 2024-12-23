@@ -58,7 +58,10 @@ public class EmployeeController {
     }
     @GetMapping("/employee/date/{date}")
     public ResponseEntity<List<Employee>> getEmployeeByDate(@PathVariable String date) {
-        return new ResponseEntity<>(employeeService.getEmployeeByDate(date), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(employeeService.getEmployeeByDate(date), HttpStatus.OK);
     }
-
+    @GetMapping("/employees/hiredate/{hiredate}")
+    public ResponseEntity<List<Employee>> getEmloyeeByHiredate(@PathVariable String hiredate) {
+        return new ResponseEntity<>(employeeService.getEmployeeByHiredate(hiredate), HttpStatus.OK);
+    }
 }

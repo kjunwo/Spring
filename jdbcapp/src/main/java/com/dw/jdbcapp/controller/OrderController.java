@@ -19,24 +19,31 @@ public class OrderController {
     OrderService orderService;
 
     @GetMapping("/find-all-orders")
-    public ResponseEntity<List<Order>> getAllOrders(){
+    public ResponseEntity<List<Order>> getAllOrders() {
         return new ResponseEntity<>(orderService.getAllOrders(),
                 HttpStatus.OK);
     }
+
     @GetMapping("/orders/{orderNumber}")
     public ResponseEntity<Order> getOrderByNumber(@PathVariable String orderNumber) {
         return new ResponseEntity<>(orderService.getOrderByNumber(orderNumber),
                 HttpStatus.OK);
     }
+
     @GetMapping("/orders/{productNumber}/{customerId}")
-    public ResponseEntity<List<Order>> getOrderProductNumber (@PathVariable String productNumber, @PathVariable String customerId) {
-        return new ResponseEntity<>(orderService.getOrderProductNumber (productNumber, customerId),
+    public ResponseEntity<List<Order>> getOrderProductNumber(@PathVariable String productNumber, @PathVariable String customerId) {
+        return new ResponseEntity<>(orderService.getOrderProductNumber(productNumber, customerId),
                 HttpStatus.OK);
     }
 
     @PostMapping("/orders")
     public ResponseEntity<OrderRequestDTO> saveOrder(
             @RequestBody OrderRequestDTO orderRequestDTO) {
-        return new ResponseEntity<>(orderService.saveOrder(orderRequestDTO),HttpStatus.CREATED);
+        return new ResponseEntity<>(orderService.saveOrder(orderRequestDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/orders/update/{id}/{date}")
+    public ResponseEntity<List<Order>> updateOrderWithShippingDate(@RequestBody String id, @RequestBody String date) {
+        return new ResponseEntity<>(orderService.updateOrderWithShippingDate(id, date), HttpStatus.OK);
     }
 }

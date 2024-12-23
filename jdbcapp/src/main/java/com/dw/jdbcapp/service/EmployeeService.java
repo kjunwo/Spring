@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,18 @@ public class EmployeeService {
     }
     public List<Employee> getEmployeeByDate(String date) {
         return employeeRepository.getEmployeeByDate(date);
+    }
+    public List<Employee> getEmployeeByHiredate(String hiredate) {
+        if (hiredate.equals("0")) {
+            return employeeRepository.getEmployeeByHiredate1();
+        }else {
+            try {
+                LocalDate hiredate2 = LocalDate.parse(hiredate);
+                return employeeRepository.getEmployeeByHiredate(hiredate2.toString());
+            }catch (DateTimeException e) {
+                throw new InvalidRequestException("입력하신 입사일이 올바르지 않습니다: " + hiredate);
+            }
+        }
     }
 }
 
