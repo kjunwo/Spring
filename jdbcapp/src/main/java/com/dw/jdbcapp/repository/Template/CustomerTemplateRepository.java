@@ -45,6 +45,7 @@ public class CustomerTemplateRepository implements CustomerRepository {
         String query = "select * from 고객 " + "where 마일리지 > (select avg(마일리지) from 고객) order by 마일리지";
         return jdbcTemplate.query(query, customerRowMapper);
     }
+
     @Override
     public List<Customer> getCustomersByMileageGrade(String grade) {
         String query = "select * from 고객 " +

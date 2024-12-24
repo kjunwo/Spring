@@ -55,18 +55,10 @@ public class ProductService {
     public List<ProductDTO>getProductsByStockValue(){
         List<Product> products = productRepository.getProductsByStockValue();
         List<ProductDTO> productDTOList = new ArrayList<>();
-        for (Product product : products) {
-            ProductDTO productDTO = new ProductDTO();
-
-            productDTO.setProductId(product.getProductId());
-            productDTO.setProductName(product.getProductName());
-            productDTO.setStock(product.getStock());
-            productDTO.setUnitPrice(product.getUnitPrice());
-            productDTO.setStockValue(product.getStock(), product.getUnitPrice());
-
-            productDTOList.add(productDTO);
+        for (Product data : products) {
+            productDTOList.add(ProductDTO.fromProduct(data));
+            // productDTOList.add(new ProductDTO(data));
         }
-
         return productDTOList;
     }
 }

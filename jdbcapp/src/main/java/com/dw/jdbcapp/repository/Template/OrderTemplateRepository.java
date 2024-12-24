@@ -84,7 +84,7 @@ public class OrderTemplateRepository implements OrderRepository {
         String query = "select 도시, sum(단가*주문수량) as 주문금액합 " + "from 주문 " +
                 "inner join 고객 on 주문.고객번호 = 고객.고객번호 " +
                 "inner join 주문세부 on 주문.주문번호 = 주문세부.주문번호 " +
-                "group by 도시 order by 주문금액합 desc " + " limit ? " ;
+                "group by 도시 order by 주문금액합 desc limit ? " ;
         return jdbcTemplate.query(query,(rs, rowNum) -> {
             Map<String, Integer> order = new HashMap<>();
             String city = rs.getNString("도시");
@@ -97,9 +97,8 @@ public class OrderTemplateRepository implements OrderRepository {
     @Override
     public List<Map<String, Object>> getOrderCountByYearForCity(String city) {
         String query = "select year(주문일) as 주문년도, count(*) as 주문건수 " +
-                "from 주문 " +
-                "join 고객 on 주문.고객번호 = 고객.고객번호 " +
-                "where 고객.도시 = ? " +
+                "from 주문 join 고객 on 주문.고객번호 = 고객.고객번호 " +
+                "where 도시 = ? " +
                 "group by 주문년도 " +
                 "order by 주문년도 ";
         return jdbcTemplate.queryForList(query, city);

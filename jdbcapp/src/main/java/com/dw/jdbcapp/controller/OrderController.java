@@ -40,26 +40,30 @@ public class OrderController {
     @PostMapping("/orders")
     public ResponseEntity<OrderRequestDTO> saveOrder(
             @RequestBody OrderRequestDTO orderRequestDTO) {
-        return new ResponseEntity<>(orderService.saveOrder(orderRequestDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(orderService.saveOrder(orderRequestDTO),
+                HttpStatus.CREATED);
     }
 
     @PutMapping("/orders/update")
     public ResponseEntity<String> updateOrderWithShippingDate(@RequestParam String id, @RequestParam String date) {
-        return new ResponseEntity<>(orderService.updateOrderWithShippingDate(id, date), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.updateOrderWithShippingDate(id, date),
+                HttpStatus.OK);
     }
 
     @GetMapping("/orders/city/orderamount/{limit}")
     public ResponseEntity<List<Map<String, Integer>>> getTopCitiesByTotalOrderAmount(@PathVariable int limit) {
-        return new ResponseEntity<>(orderService.getTopCitiesByTotalOrderAmount(limit), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.getTopCitiesByTotalOrderAmount(limit),
+                HttpStatus.OK);
     }
     @GetMapping("/orders/ordercount/year/{city}")
     public ResponseEntity<List<Map<String,Integer>>> getOrderCountByYearForCity(@PathVariable String city) {
-        return new ResponseEntity<>(orderService.getOrderCountByYearForCity(city), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.getOrderCountByYearForCity(city),
+                HttpStatus.OK);
     }
     @PostMapping("/post/orders")
     public ResponseEntity<OrderRequestDTO> getsaveOrder(@RequestBody OrderRequestDTO orderRequestDTO){
         return new ResponseEntity<>(
-                orderService.getsaveOrder(orderRequestDTO),HttpStatus.OK
-        );
+                orderService.getsaveOrder(orderRequestDTO),
+                HttpStatus.OK);
     }
 }
