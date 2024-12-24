@@ -50,4 +50,12 @@ public class ProductController {
         return new ResponseEntity<>("제품번호: " + productService.deleteProduct(id) + " 삭제됨",
                 HttpStatus.CREATED);
     }
+    @PutMapping("/products/update")
+    public ResponseEntity<String> updateProductWithStock(@RequestParam int id,@RequestParam int stock) {
+        return new ResponseEntity<>(productService.updateProductWithStock(id, stock), HttpStatus.OK);
+    }
+    @GetMapping("/products/name/{name}")
+    public ResponseEntity<List<Product>> getProductByProductName(@PathVariable String name) {
+        return new ResponseEntity<>(productService.getProductByProductName(name), HttpStatus.OK);
+    }
 }

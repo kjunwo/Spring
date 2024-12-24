@@ -43,4 +43,8 @@ public class ProductService {
     public int deleteProduct(int id) {
         return productRepository.deleteProduct(id);
     }
+
+    public String updateProductWithStock(int id, int stock) {
+        return productRepository.updateProductWithStock(id, stock);
+    }
 }

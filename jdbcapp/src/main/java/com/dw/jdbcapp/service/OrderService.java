@@ -4,17 +4,24 @@ import com.dw.jdbcapp.dto.OrderRequestDTO;
 import com.dw.jdbcapp.exception.InvalidRequestException;
 import com.dw.jdbcapp.model.Order;
 import com.dw.jdbcapp.model.OrderDetail;
+import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.repository.Jdbc.OrderJdbcRepository;
 import com.dw.jdbcapp.repository.iface.OrderDetailRepository;
 import com.dw.jdbcapp.repository.iface.OrderRepository;
+import com.dw.jdbcapp.repository.iface.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.ClientInfoStatus;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderService {
@@ -24,6 +31,9 @@ public class OrderService {
     @Autowired
     @Qualifier("orderDetailTemplateRepository")
     OrderDetailRepository orderDetailRepository;
+    @Autowired
+    @Qualifier("productTemplateRepository")
+    ProductRepository productRepository;
 
     public List<Order> getAllOrders() {
         return orderRepository.getAllOrders();
@@ -48,9 +58,37 @@ public class OrderService {
         }
         return orderRequestDTO;
     }
-    public List<Order> updateOrderWithShippingDate(String id, String date) {
+    public String updateOrderWithShippingDate(String id, String date) {
         return orderRepository.updateOrderWithShippingDate(id, date);
+    }
+    public List<Map<String, Integer>> getTopCitiesByTotalOrderAmount(int limit) {
+        return orderRepository.getTopCitiesByTotalOrderAmount(limit);
+    }
+    public List<Map<String, Integer>> getOrderCountByYearForCity(String city) {
+        List<Map<String, Object>> mapList = orderRepository.getOrderCountByYearForCity(city);
+        List<Map<String, Integer>> getOrderCountByYearForCity = new ArrayList<>();
+        for (Map<String, Object> objectMap : mapList) {
+            Map<String, Integer> stringIntegerMap = new HashMap<>();
+            stringIntegerMap.put("주문년도",Integer.valueOf(objectMap.get("주문년도").toString()));
+            stringIntegerMap.put("주문건수",Integer.valueOf(objectMap.get("주문건수").toString()));
+            getOrderCountByYearForCity.add(stringIntegerMap);
+        }
+        return getOrderCountByYearForCity ;
+    }
+    public OrderRequestDTO getsaveOrder(OrderRequestDTO orderRequestDTO) {
+        orderRepository.saveOrder(orderRequestDTO.toOrder());
+        for (OrderDetail data : orderRequestDTO.getOrderDetails()) {
+            Product product = productRepository.getProductById(data.getProductId());
 
+            if (data.getOrderQuantity() > product.getStock()) {
+                throw new InvalidRequestException(
+                        "요청하신 수량은 현재 재고를 초과합니다: " + product.getStock()
+                );
+            } else {
+                orderDetailRepository.saveOrderDetail(data);
+            }
+        }
+        return orderRequestDTO;
     }
 }
 

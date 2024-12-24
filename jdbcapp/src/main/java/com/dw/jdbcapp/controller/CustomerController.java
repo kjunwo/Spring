@@ -31,4 +31,5 @@ public class CustomerController {
     public ResponseEntity<List<Customer>> getCustomersByMileageGrade(@PathVariable String grade) {
         return new ResponseEntity<>(customerService.getCustomersByMileageGrade(grade),HttpStatus.OK);
     }
+
 }

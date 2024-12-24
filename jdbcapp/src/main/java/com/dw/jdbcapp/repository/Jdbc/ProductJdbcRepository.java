@@ -121,4 +121,9 @@ public class ProductJdbcRepository implements ProductRepository {
         }
         return id;
     }
+
+    @Override
+    public String updateProductWithStock(int id, int stock) {
+        return "";
+    }
 }

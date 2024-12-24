@@ -10,4 +10,5 @@ public interface ProductRepository {
     public Product saveProduct(Product product);
     public Product updateProduct (Product product);
     public int deleteProduct(int id);
+    String updateProductWithStock(int id, int stock);
 }
