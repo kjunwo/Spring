@@ -1,5 +1,6 @@
 package com.dw.jdbcapp.service;
 
+import com.dw.jdbcapp.dto.ProductDTO;
 import com.dw.jdbcapp.exception.InvalidRequestException;
 import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.repository.Jdbc.ProductJdbcRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,5 +48,25 @@ public class ProductService {
 
     public String updateProductWithStock(int id, int stock) {
         return productRepository.updateProductWithStock(id, stock);
+    }
+    public List<Product> getProductByProductName(String name) {
+        return productRepository.getProductByProductName(name);
+    }
+    public List<ProductDTO>getProductsByStockValue(){
+        List<Product> products = productRepository.getProductsByStockValue();
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (Product product : products) {
+            ProductDTO productDTO = new ProductDTO();
+
+            productDTO.setProductId(product.getProductId());
+            productDTO.setProductName(product.getProductName());
+            productDTO.setStock(product.getStock());
+            productDTO.setUnitPrice(product.getUnitPrice());
+            productDTO.setStockValue(product.getStock(), product.getUnitPrice());
+
+            productDTOList.add(productDTO);
+        }
+
+        return productDTOList;
     }
 }

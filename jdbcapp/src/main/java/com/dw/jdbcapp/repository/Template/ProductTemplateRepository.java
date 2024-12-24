@@ -1,5 +1,6 @@
 package com.dw.jdbcapp.repository.Template;
 
+import com.dw.jdbcapp.dto.ProductDTO;
 import com.dw.jdbcapp.exception.ResourceNotFoundException;
 import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.repository.iface.ProductRepository;
@@ -87,5 +88,18 @@ public class ProductTemplateRepository implements ProductRepository {
         String query = "update 제품 set 재고 = ? where 제품번호 = ?";
         jdbcTemplate.update(query,stock,id);
         return "제품번호 : " + id + "의 재고가 " + stock + "개로 수정되었습니다.";
+    }
+
+    @Override
+    public List<Product> getProductByProductName(String name) {
+        String query = "select * from 제품 where 제품명 like ?";
+        String abname = "%" + name + "%";
+        return jdbcTemplate.query(query, productRowMapper, abname);
+    }
+
+    @Override
+    public List<Product> getProductsByStockValue() {
+        String query = "select 제품번호, 제품명, 포장단위, 단가, 재고, (단가*재고) as 재고금액 from 제품 ";
+        return jdbcTemplate.query(query, productRowMapper);
     }
 }

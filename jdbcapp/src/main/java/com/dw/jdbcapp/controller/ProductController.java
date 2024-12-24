@@ -1,5 +1,6 @@
 package com.dw.jdbcapp.controller;
 
+import com.dw.jdbcapp.dto.ProductDTO;
 import com.dw.jdbcapp.model.Department;
 import com.dw.jdbcapp.model.Product;
 import com.dw.jdbcapp.service.ProductService;
@@ -56,6 +57,10 @@ public class ProductController {
     }
     @GetMapping("/products/name/{name}")
     public ResponseEntity<List<Product>> getProductByProductName(@PathVariable String name) {
-        return new ResponseEntity<>(productService.getProductByProductName(name), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getProductByProductName(name), HttpStatus.ACCEPTED);
+    }
+    @GetMapping("/products/stockvalue")
+    public ResponseEntity<List<ProductDTO>>getProductsByStockValue() {
+        return new ResponseEntity<>(productService.getProductsByStockValue(), HttpStatus.OK);
     }
 }
