@@ -18,4 +18,8 @@ public class InstructorService {
         return instructorRepository.findAll().stream().map(Instructor::toDTO).
                 collect(Collectors.toList());
     }
+    public List<InstructorDTO>getInstructor(Long id) {
+        List<Instructor> instructors = instructorRepository.findBygetInstructor("%"+ id + "%");
+        return instructors.stream().map(Instructor::toDTO).toList();
+    }
 }
