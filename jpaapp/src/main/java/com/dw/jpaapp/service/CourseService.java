@@ -39,24 +39,35 @@ public class CourseService {
         return courses.stream().map(Course::toDTO).toList();
     }
     // 과제 2번
+//    public CourseDTO saveCourse(CourseDTO courseDTO) {
+//        Course course = new Course();
+//        course.setTitle(courseDTO.getTitle());
+//        course.setDescription(courseDTO.getDescription());
+//        Instructor instructor = instructorRepository.findById(courseDTO.getInstructorId()).get();
+//        course.setInstructor_fk(instructor);
+//        List<Student> studentList = new ArrayList<>();
+//        for (Long id : courseDTO.getStudentIds()) {
+//            Optional<Student> studentOptional = studentRepository.findById(id);
+//            if (studentOptional.isPresent()) {
+//                Student student = studentOptional.get();
+//                student.getCourseList().add(course);
+//                studentList.add(student);
+//            }
+//        }
+//        course.setStudentList(studentList);
+//        return courseRepository.save(course).toDTO();
+//    }
     public CourseDTO saveCourse(CourseDTO courseDTO) {
         Course course = new Course();
-        course.setId(courseDTO.getId());
         course.setTitle(courseDTO.getTitle());
         course.setDescription(courseDTO.getDescription());
-        Instructor instructor = instructorRepository.findById(courseDTO.getInstructorId()).get();
-        course.setInstructor_fk(instructor);
-        List<Student> studentList = new ArrayList<>();
-        for (Long id : courseDTO.getStudentIds()) {
-            Optional<Student> studentOptional = studentRepository.findById(id);
-            if (studentOptional.isPresent()) {
-                Student student = studentOptional.get();
-                student.getCourseList().add(course);
-                studentList.add(student);
-            }
-        }
-        course.setStudentList(studentList);
+        course.setInstructor_fk(instructorRepository.findById(courseDTO.getInstructorId())
+                .orElseThrow(()->new RuntimeException("No instructor")));
+        course.setStudentList(courseDTO.getStudentIds().stream()
+                .map(id->studentRepository.findById(id))
+                .map(optional->optional.orElseThrow(()->new RuntimeException("No Student")))
+                .toList()
+        );
         return courseRepository.save(course).toDTO();
     }
 }
-

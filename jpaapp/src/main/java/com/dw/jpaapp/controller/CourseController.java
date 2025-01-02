@@ -32,7 +32,7 @@ public class CourseController {
     @PostMapping("/course/save")
     public ResponseEntity<CourseDTO> saveCourse(@RequestBody CourseDTO courseDTO) {
         return new ResponseEntity<>(courseService.saveCourse(courseDTO),
-        HttpStatus.OK);
+        HttpStatus.CREATED);
 
     }
 }

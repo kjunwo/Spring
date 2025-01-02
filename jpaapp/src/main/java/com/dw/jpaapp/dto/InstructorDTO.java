@@ -15,8 +15,8 @@ import java.util.List;
 @Setter
 public class InstructorDTO {
     private Long id;
-    private String title;
+    private String name;
     private String career;
-    private List<Long> courseList = new ArrayList<>();
+    private List<Long> courseIds = new ArrayList<>();
 
 }

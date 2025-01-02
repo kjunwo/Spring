@@ -2,15 +2,13 @@ package com.dw.jpaapp.model;
 
 import com.dw.jpaapp.dto.InstructorProfileDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name = "instructor_profile")
 public class InstructorProfile {
@@ -19,7 +17,7 @@ public class InstructorProfile {
     private Long id;
 
     @Column(name = "bio", length = 3000) // length는 글자수(바이트수 아님)
-    private String bio;
+    private String bio; // 강사 소개
 
     @Column(name = "github_url")
     private String githubUrl;
