@@ -16,6 +16,7 @@ public class Employee {
     private String homePhone;
     private String supervisorId;
     private String departmentId;
+
     public Employee() {
     }
 

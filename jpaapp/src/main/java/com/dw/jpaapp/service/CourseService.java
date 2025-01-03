@@ -25,38 +25,17 @@ public class CourseService {
     StudentRepository studentRepository;
 
     public List<CourseDTO> getAllCourses() {
-//        List<CourseDTO> courseDTOS = new ArrayList<>();
-//        for (Course data : courseRepository.findAll()){
-//            courseDTOS.add(data.toDTO());
-//        }
-//        return courseDTOS;
         return courseRepository.findAll().stream().map(Course::toDTO)
                 .collect(Collectors.toList());
     }
-    // 과제 1번
-    public List<CourseDTO>getCoursesLike(String title) {
-        List<Course> courses = courseRepository.findByTitleLike("%"+ title + "%");
-        return courses.stream().map(Course::toDTO).toList();
+
+    // 과제5-1. 검색어를 매개변수로 전달하고 검색어를 포함한 title을 가진 과목을 조회
+    public List<CourseDTO> getCoursesLike(String title) {
+        return courseRepository.findByTitleLike("%" + title + "%")
+                .stream().map(Course::toDTO).toList();
     }
-    // 과제 2번
-//    public CourseDTO saveCourse(CourseDTO courseDTO) {
-//        Course course = new Course();
-//        course.setTitle(courseDTO.getTitle());
-//        course.setDescription(courseDTO.getDescription());
-//        Instructor instructor = instructorRepository.findById(courseDTO.getInstructorId()).get();
-//        course.setInstructor_fk(instructor);
-//        List<Student> studentList = new ArrayList<>();
-//        for (Long id : courseDTO.getStudentIds()) {
-//            Optional<Student> studentOptional = studentRepository.findById(id);
-//            if (studentOptional.isPresent()) {
-//                Student student = studentOptional.get();
-//                student.getCourseList().add(course);
-//                studentList.add(student);
-//            }
-//        }
-//        course.setStudentList(studentList);
-//        return courseRepository.save(course).toDTO();
-//    }
+
+    // 과제5-2. 과목 정보를 새로 저장
     public CourseDTO saveCourse(CourseDTO courseDTO) {
         Course course = new Course();
         course.setTitle(courseDTO.getTitle());

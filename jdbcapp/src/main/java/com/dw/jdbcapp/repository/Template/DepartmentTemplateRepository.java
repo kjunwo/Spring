@@ -1,4 +1,4 @@
-package com.dw.jdbcapp.repository.Template;
+package com.dw.jdbcapp.repository.template;
 
 import com.dw.jdbcapp.model.Department;
 import com.dw.jdbcapp.repository.iface.DepartmentRepository;
@@ -28,13 +28,14 @@ public class DepartmentTemplateRepository implements DepartmentRepository {
 
     @Override
     public List<Department> getAllDepartments() {
-         String query = "select * from 부서";
-         return jdbcTemplate.query(query, departmentRowMapper);
+        String query = "select * from 부서";
+        return jdbcTemplate.query(query, departmentRowMapper);
     }
 
     @Override
     public Department saveDepartment(Department department) {
-        String query = "insert into 부서(부서번호,부서명) " + "values (?, ?)";
+        String query = "insert into 부서(부서번호,부서명) "
+                + "values (?, ?)";
         jdbcTemplate.update(query,
                 department.getDepartmentId(),
                 department.getDepartmentName());
@@ -53,7 +54,7 @@ public class DepartmentTemplateRepository implements DepartmentRepository {
     @Override
     public String deleteDepartment(String id) {
         String query = "delete from 부서 where 부서번호 = ?";
-        jdbcTemplate.update(query,id);
+        jdbcTemplate.update(query, id);
         return id;
     }
 }

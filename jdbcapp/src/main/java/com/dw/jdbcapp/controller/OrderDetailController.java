@@ -13,14 +13,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class OrderDetailsController {
+public class OrderDetailController {
     @Autowired
     OrderDetailService orderDetailService;
 
-    @GetMapping("/find-all-orderdetails")
-    public ResponseEntity<List<OrderDetail>> getAllOrderDetails(){
-        return new ResponseEntity<>(orderDetailService.getAllOrderDetails(),
-                HttpStatus.CONFLICT);
+    @GetMapping("find-all-orderdetails")
+    public ResponseEntity<List<OrderDetail>> getAllOrderDetails() {
+        return new ResponseEntity<>(
+                orderDetailService.getAllOrderDetails(),
+                HttpStatus.OK);
     }
-
 }

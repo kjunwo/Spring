@@ -1,5 +1,9 @@
 package com.dw.jpaapp.dto;
 
+import com.dw.jpaapp.model.Instructor;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 
 @NoArgsConstructor

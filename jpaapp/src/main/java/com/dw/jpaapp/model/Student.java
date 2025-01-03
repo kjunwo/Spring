@@ -7,6 +7,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -29,9 +30,9 @@ public class Student {
     @ManyToMany(mappedBy = "studentList")
     private List<Course> courseList = new ArrayList<>();
 
+    // StudentDTO 매핑 메서드
     public StudentDTO toDTO() {
         List<Long> courseIds = courseList.stream().map(Course::getId).toList();
-        return new StudentDTO(this.id, this.name, this.email,courseIds);
+        return new StudentDTO(this.id, this.name, this.email, courseIds);
     }
-
 }

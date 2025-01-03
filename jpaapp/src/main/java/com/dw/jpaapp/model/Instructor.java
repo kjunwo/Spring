@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,7 +18,6 @@ import java.util.List;
 public class Instructor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -32,6 +32,7 @@ public class Instructor {
     // InstructorDTO 매핑 메서드
     public InstructorDTO toDTO() {
         List<Long> courseIds = courseList.stream().map(Course::getId).toList();
-        return new InstructorDTO(this.id, this.name, this.career, courseIds);
+        return new InstructorDTO(
+                this.id, this.name, this.career, courseIds);
     }
 }

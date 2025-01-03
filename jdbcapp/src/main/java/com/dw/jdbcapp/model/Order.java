@@ -75,5 +75,3 @@ public class Order {
         return orderId + ", " + customerId + ", " + employeeId + ", " + orderDate + ", " + requestDate + ", " + shippingDate;
     }
 }
-
-

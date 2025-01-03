@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DepartmentService {
@@ -33,8 +32,6 @@ public class DepartmentService {
                     return departmentRepository.save(department1);
                 })
                 .orElseThrow(() -> new RuntimeException("찾을 수 없습니다.:" + department.getDepartmentId()));
-
-
     }
 
     public String deleteDepartment(String id) {

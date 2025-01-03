@@ -1,4 +1,4 @@
-package com.dw.jdbcapp.repository.Jdbc;
+package com.dw.jdbcapp.repository.jdbc;
 
 import com.dw.jdbcapp.model.OrderDetail;
 import com.dw.jdbcapp.repository.iface.OrderDetailRepository;

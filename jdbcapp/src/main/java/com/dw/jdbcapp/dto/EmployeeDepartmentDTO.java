@@ -39,8 +39,10 @@ public class EmployeeDepartmentDTO {
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
     }
+
     @Override
     public String toString() {
-        return this.hireDate + ", " + this.departmentName + ", " + this.employeeName;
+        return this.hireDate + ", " + this.departmentName + ", " +
+                this.employeeName;
     }
 }

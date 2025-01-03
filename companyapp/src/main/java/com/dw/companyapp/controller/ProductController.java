@@ -25,7 +25,7 @@ public class ProductController {
 
     // 과제 1-1 제품번호를 기준으로 제품 정보를 조회하는 API
     @GetMapping("/products/{productNumber}")
-    public ResponseEntity<Product> getProductById(@PathVariable int productNumber) {
+    public ResponseEntity<Product> getProductById(@PathVariable Long productNumber) {
         return new ResponseEntity<>(
                 productService.getProductById(productNumber),
                 HttpStatus.OK);

@@ -1,6 +1,7 @@
 package com.dw.companyapp.service;
 
 import com.dw.companyapp.dto.OrderRequestDTO;
+import com.dw.companyapp.exception.ResourceNotFoundException;
 import com.dw.companyapp.model.Order;
 import com.dw.companyapp.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ public class OrderService {
     // 과제 1-2 주문번호를 기준으로 주문 정보를 조회하는 API
     // 과제 3-2 주문정보를 조회할때 주문번호가 올바르지 않은 경우의 예외 처리
     public Order getOrderById(String orderNumber) {
-        return null;
+        return orderRepository.findById(orderNumber)
+                .orElseThrow(() -> new ResourceNotFoundException("주문번호를 찾을 수 없습니다."));
     }
 
     // 과제 1-4 제품번호와 고객번호를 기준으로 해당 제품을 주문한 특정 고객의 주문 내역을 조회하는 API

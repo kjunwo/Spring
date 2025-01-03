@@ -1,6 +1,7 @@
 package com.dw.companyapp.service;
 
 import com.dw.companyapp.dto.EmployeeDepartmentDTO;
+import com.dw.companyapp.exception.ResourceNotFoundException;
 import com.dw.companyapp.model.Employee;
 import com.dw.companyapp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ public class EmployeeService {
 
     // 과제 3-1 사원정보를 조회할때 사원번호가 올바르지 않은 경우의 예외 처리
     public Employee getEmployeeById(String id) {
-        return null;
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("해당 사원을 찾을 수 없습니다."));
     }
 
     public List<Map<String,Object>> getEmployeesWithDepartName() {

@@ -1,4 +1,4 @@
-package com.dw.jdbcapp.repository.Jdbc;
+package com.dw.jdbcapp.repository.jdbc;
 
 import com.dw.jdbcapp.model.Order;
 import com.dw.jdbcapp.repository.iface.OrderRepository;
@@ -21,11 +21,14 @@ public class OrderJdbcRepository implements OrderRepository {
         List<Order> orders = new ArrayList<>();
         String query = "select * from 주문";
         try (
-                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                Connection connection = DriverManager.getConnection(
+                        URL, USER, PASSWORD);
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query)) {
+            System.out.println("데이터베이스 연결 성공");
             while (resultSet.next()) {
                 Order order = new Order();
+
                 order.setOrderId(resultSet.getString("주문번호"));
                 order.setCustomerId(resultSet.getString("고객번호"));
                 order.setEmployeeId(resultSet.getString("사원번호"));
@@ -40,16 +43,18 @@ public class OrderJdbcRepository implements OrderRepository {
         }
         return orders;
     }
+
     @Override
-    public Order getOrderByNumber(String number) {
+    public Order getOrderById(String orderNumber) {
         Order order = new Order();
         String query = "select * from 주문 where 주문번호 = ?";
         try (
-                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement pstmt = connection.prepareStatement(query)
-        ){
-            pstmt.setString(1, number);
-            try (ResultSet resultSet = pstmt.executeQuery()) {
+                Connection connection = DriverManager.getConnection(
+                        URL, USER, PASSWORD);
+                PreparedStatement pstmt = connection.prepareStatement(query)) {
+            System.out.println("데이터베이스 연결 성공");
+            pstmt.setString(1, orderNumber);
+            try(ResultSet resultSet = pstmt.executeQuery()) {
                 while (resultSet.next()) {
                     order.setOrderId(resultSet.getString("주문번호"));
                     order.setCustomerId(resultSet.getString("고객번호"));
@@ -64,17 +69,20 @@ public class OrderJdbcRepository implements OrderRepository {
         }
         return order;
     }
+
     @Override
-    public List<Order> getOrderProductNumber(String number, String id) {
+    public List<Order> getOrderByIdAndCustomer(int productNumber, String customerId) {
         List<Order> orders = new ArrayList<>();
-        String query = "select * from 제품" + "inner join 주문세부 on 제품.고객번호 = 주문세부.고객번호 where 제품번호 = ? and ?";
+        String query = "select * from 주문 where 고객번호 = ? and" +
+                " 주문번호 in (select 주문번호 from 주문세부 where 제품번호 = ?)";
         try (
-                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement pstmt = connection.prepareStatement(query)
-        ){
-            pstmt.setString(1, number);
-            pstmt.setString(1, id);
-            try (ResultSet resultSet = pstmt.executeQuery()) {
+                Connection connection = DriverManager.getConnection(
+                        URL, USER, PASSWORD);
+                PreparedStatement pstmt = connection.prepareStatement(query)) {
+            System.out.println("데이터베이스 연결 성공");
+            pstmt.setString(1, customerId);
+            pstmt.setInt(2, productNumber);
+            try(ResultSet resultSet = pstmt.executeQuery()) {
                 while (resultSet.next()) {
                     Order order = new Order();
                     order.setOrderId(resultSet.getString("주문번호"));
@@ -83,9 +91,7 @@ public class OrderJdbcRepository implements OrderRepository {
                     order.setOrderDate(LocalDate.parse(resultSet.getString("주문일")));
                     order.setRequestDate(LocalDate.parse(resultSet.getString("요청일")));
                     order.setShippingDate(LocalDate.parse(resultSet.getString("발송일")));
-
                     orders.add(order);
-
                 }
             }
         } catch (SQLException e) {
@@ -100,17 +106,17 @@ public class OrderJdbcRepository implements OrderRepository {
     }
 
     @Override
-    public String updateOrderWithShippingDate(String id, String date) {
-        return "";
+    public int updateOrderWithShippingDate(String id, String date) {
+        return 0;
     }
 
     @Override
-    public List<Map<String, Integer>> getTopCitiesByTotalOrderAmount(int limit) {
+    public List<Map<String, Double>> getTopCitiesByTotalOrderAmount(int limit) {
         return List.of();
     }
 
     @Override
-    public List<Map<String, Object>> getOrderCountByYearForCity(String city) {
+    public List<Map<String, Double>> getOrderCountByYearForCity(String city) {
         return List.of();
     }
 }

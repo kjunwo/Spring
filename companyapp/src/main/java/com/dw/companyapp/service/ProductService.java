@@ -1,21 +1,27 @@
 package com.dw.companyapp.service;
 
 import com.dw.companyapp.dto.ProductDTO;
+import com.dw.companyapp.exception.ResourceNotFoundException;
 import com.dw.companyapp.model.Product;
+import com.dw.companyapp.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ProductService {
+    @Autowired
+    ProductRepository productRepository;
 
     public List<Product> getAllProducts() {
-        return null;
+        return productRepository.findAll();
     }
 
     // 과제 1-1 제품번호를 기준으로 제품 정보를 조회하는 API
-    public Product getProductById(int productNumber) {
-        return null;
+    public Product getProductById(Long productNumber) {
+        return productRepository.findById(productNumber)
+                .orElseThrow(()-> new RuntimeException());
     }
 
     // 과제 2-1 제품테이블에 새로운 제품 1개를 추가하는 API

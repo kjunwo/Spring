@@ -8,7 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface StudentRepository extends JpaRepository<Student,Long> {
+public interface StudentRepository extends JpaRepository<Student, Long> {
+
     //Student findByName(String name);
     // 리턴형을 List에  담아서 응답하도록 선언할 수 있음
     //List<Student> findByName(String name);
@@ -25,6 +26,7 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
     // 이 메서드가 수행해야할 SQL쿼리를 직접 작성해주면 JPA는 수행 가능함
     @Query("select s from Student s where s.name = :name")
     Optional<Student> findByName2(String name);
+
     List<Student> findByEmail(String email);
     List<Student> findByNameAndEmail(String name, String email);
     List<Student> findByNameLike(String name);

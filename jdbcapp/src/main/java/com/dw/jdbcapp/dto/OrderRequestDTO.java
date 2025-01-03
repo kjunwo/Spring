@@ -65,7 +65,7 @@ public class OrderRequestDTO {
     }
 
     public Order toOrder() {
-        Order order =new Order();
+        Order order = new Order();
         order.setOrderId(this.orderId);
         order.setCustomerId(this.customerId);
         order.setEmployeeId(this.employeeId);

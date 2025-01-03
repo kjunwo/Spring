@@ -1,4 +1,4 @@
-package com.dw.jdbcapp.repository.Jdbc;
+package com.dw.jdbcapp.repository.jdbc;
 
 import com.dw.jdbcapp.model.Customer;
 import com.dw.jdbcapp.repository.iface.CustomerRepository;
@@ -19,11 +19,11 @@ public class CustomerJdbcRepository implements CustomerRepository {
         List<Customer> customers = new ArrayList<>();
         String query = "select * from 고객";
         try (
-                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                Connection connection = DriverManager.getConnection(
+                        URL, USER, PASSWORD);
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query)) {
             System.out.println("데이터베이스 연결 성공");
-
             while (resultSet.next()) {
                 Customer customer = new Customer();
 
@@ -55,4 +55,3 @@ public class CustomerJdbcRepository implements CustomerRepository {
         return List.of();
     }
 }
-

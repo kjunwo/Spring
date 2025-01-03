@@ -1,6 +1,5 @@
 package com.dw.jpaapp.controller;
 
-
 import com.dw.jpaapp.dto.InstructorProfileDTO;
 import com.dw.jpaapp.service.InstructorProfileService;
 import org.springframework.beans.factory.annotation.Autowired;

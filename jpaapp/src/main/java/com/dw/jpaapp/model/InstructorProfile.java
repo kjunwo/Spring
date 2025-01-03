@@ -2,6 +2,7 @@ package com.dw.jpaapp.model;
 
 import com.dw.jpaapp.dto.InstructorProfileDTO;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.*;
 
 @NoArgsConstructor
@@ -26,8 +27,12 @@ public class InstructorProfile {
     @JoinColumn(name = "instructor_id") // 단방향 참조
     private Instructor instructor;
 
+    // InstructorProfile 매핑 메서드
     public InstructorProfileDTO toDTO() {
-        return new InstructorProfileDTO(this.id, this.bio,
-                this.githubUrl, this.instructor.getId());
+        return new InstructorProfileDTO(
+                this.id,
+                this.bio,
+                this.githubUrl,
+                this.instructor.getId());
     }
 }

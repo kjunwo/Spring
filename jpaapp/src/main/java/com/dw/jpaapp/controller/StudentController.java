@@ -24,17 +24,20 @@ public class StudentController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<String> getAllStudentInfo() {
-        return new ResponseEntity<>(studentService.getAllStudentInfo(),
+    public ResponseEntity<String> getStudentInfo() {
+        return new ResponseEntity<>(
+                studentService.getStudentInfo(),
                 HttpStatus.OK);
     }
 
     @PostMapping("/student/save")
     public ResponseEntity<StudentDTO> saveStudent(
             @RequestBody StudentDTO studentDTO) {
-        return new ResponseEntity<>(studentService.saveStudent(studentDTO),
+        return new ResponseEntity<>(
+                studentService.saveStudent(studentDTO),
                 HttpStatus.CREATED);
     }
+
     // 과제5-6. 전체 학생의 학생ID, 학생이름, 강의명, 강사이름을 DTO로 만들어서 조회
     @GetMapping("/student/summary")
     public ResponseEntity<List<StudentSummaryDTO>> getStudentSummary() {
@@ -49,3 +52,11 @@ public class StudentController {
                 HttpStatus.OK);
     }
 }
+
+
+
+
+
+
+
+

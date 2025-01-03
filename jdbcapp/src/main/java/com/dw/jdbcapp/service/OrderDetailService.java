@@ -1,8 +1,8 @@
 package com.dw.jdbcapp.service;
 
 import com.dw.jdbcapp.model.OrderDetail;
-import com.dw.jdbcapp.repository.Jdbc.OrderDetailJdbcRepository;
 import com.dw.jdbcapp.repository.iface.OrderDetailRepository;
+import com.dw.jdbcapp.repository.jdbc.OrderDetailJdbcRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
