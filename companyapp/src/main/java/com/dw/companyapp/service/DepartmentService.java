@@ -27,12 +27,23 @@ public class DepartmentService {
     }
 
     public Department updateDepartment(Department department) {
-        return departmentRepository.findAllById(department.getDepartmentId())
+        return departmentRepository.findById(department.getDepartmentId())
+                .map(department1 -> {
+                    department1.setDepartmentName(department.getDepartmentName());
+                    return departmentRepository.save(department1);
+                })
+                .orElseThrow(() -> new RuntimeException("찾을 수 없습니다.:" + department.getDepartmentId()));
+
 
     }
 
     public String deleteDepartment(String id) {
-        return departmentRepository.findAllById();
+        return departmentRepository.findById(id)
+                .map(department -> {
+                    departmentRepository.delete(department);
+                    return id + "가 삭제되었습니다.";
+                })
+                .orElseThrow(()-> new RuntimeException(id + "에 해당 부서를 찾을 수 없습니다."));
     }
 }
 
