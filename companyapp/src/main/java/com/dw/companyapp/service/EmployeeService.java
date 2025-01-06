@@ -7,6 +7,8 @@ import com.dw.companyapp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +28,35 @@ public class EmployeeService {
     }
 
     public List<Map<String,Object>> getEmployeesWithDepartName() {
-        return null;
+        List<Object[]> objects = employeeRepository.getEmployeesWithDepartName();
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        for (Object[] data : objects) {
+            Map<String, Object> employeeMap = new HashMap<>();
+            Employee employee = (Employee) data[0];
+            String departmentName = (String) data[1];
+
+            employeeMap.put("이름", employee.getName());
+            employeeMap.put("입사일", employee.getHireDate());
+            employeeMap.put("부서명", departmentName);
+
+            result.add(employeeMap);
+        }
+        return result;
+//        List<Object[]> objects = employeeRepository.getEmployeesWithDepartName();
+//        List<Map<String, Object>> maps = new ArrayList<>();
+//        for (Object[] data : objects) {
+//            Map<String, Object> employee = new HashMap<>();
+//            employee.put("입사일", data[0] != null ? data[0] : "");
+//            employee.put("부서명", data[1] != null ? data[1] : "");
+//            employee.put("이름", data[2] != null ? data[2] : "");
+//            maps.add(employee);
+//        }
+//        return maps;
     }
 
     public List<EmployeeDepartmentDTO> getEmployeesWithDepartName2() {
-        return null;
+        return employeeRepository.getEmployeesWithDepartName2();
     }
 
     // 과제 1-3 부서번호와 직위를 기준으로 해당 부서에 근무하는 특정 직위의 사원 정보를 조회하는 API

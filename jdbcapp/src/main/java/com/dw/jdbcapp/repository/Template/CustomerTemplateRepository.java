@@ -53,7 +53,7 @@ public class CustomerTemplateRepository implements CustomerRepository {
     @Override
     public List<Customer> getCustomersByMileageGrade(String grade) {
         String query = "select 고객.* from 고객 join 마일리지등급 " +
-                "on 고객.마일리지 between 마일리지등급.하한마일리지 and 마일리지등급.상한마일리지" +
+                "on 고객.마일리지 between 마일리지등급.하한마일리지 and 마일리지등급.상한마일리지\n" +
                 "where 마일리지등급.등급명 = ?";
         return jdbcTemplate.query(query, customerRowMapper, grade);
     }

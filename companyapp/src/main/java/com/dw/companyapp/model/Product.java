@@ -1,7 +1,10 @@
 package com.dw.companyapp.model;
 
+import com.dw.companyapp.dto.ProductDTO;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,4 +26,12 @@ public class Product {
     private double unitPrice;
     @Column(name="재고")
     private int stock;
+
+    public ProductDTO toDTO() {
+        return new ProductDTO(this.productId,
+                this.productName,
+                this.unitPrice,
+                this.stock,
+                this.unitPrice * this.stock);
+    }
 }
