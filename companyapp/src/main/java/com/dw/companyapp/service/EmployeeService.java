@@ -29,30 +29,17 @@ public class EmployeeService {
 
     public List<Map<String,Object>> getEmployeesWithDepartName() {
         List<Object[]> objects = employeeRepository.getEmployeesWithDepartName();
-        List<Map<String, Object>> result = new ArrayList<>();
-
+        List<Map<String, Object>> maps = new ArrayList<>();
         for (Object[] data : objects) {
             Map<String, Object> employeeMap = new HashMap<>();
             Employee employee = (Employee) data[0];
             String departmentName = (String) data[1];
-
             employeeMap.put("이름", employee.getName());
             employeeMap.put("입사일", employee.getHireDate());
             employeeMap.put("부서명", departmentName);
-
-            result.add(employeeMap);
+            maps.add(employeeMap);
         }
-        return result;
-//        List<Object[]> objects = employeeRepository.getEmployeesWithDepartName();
-//        List<Map<String, Object>> maps = new ArrayList<>();
-//        for (Object[] data : objects) {
-//            Map<String, Object> employee = new HashMap<>();
-//            employee.put("입사일", data[0] != null ? data[0] : "");
-//            employee.put("부서명", data[1] != null ? data[1] : "");
-//            employee.put("이름", data[2] != null ? data[2] : "");
-//            maps.add(employee);
-//        }
-//        return maps;
+        return maps;
     }
 
     public List<EmployeeDepartmentDTO> getEmployeesWithDepartName2() {
