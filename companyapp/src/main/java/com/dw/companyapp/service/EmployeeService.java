@@ -40,6 +40,16 @@ public class EmployeeService {
             maps.add(employeeMap);
         }
         return maps;
+//        List<Object[]> objects = employeeRepository.getEmployeesWithDepartName();
+//        List<Map<String, Object>> maps = new ArrayList<>();
+//        for (Object[] data : objects) {
+//            Map<String, Object> employee = new HashMap<>();
+//            employee.put("입사일", data[0] != null ? data[0] : "");
+//            employee.put("부서명", data[1] != null ? data[1] : "");
+//            employee.put("이름", data[2] != null ? data[2] : "");
+//            maps.add(employee);
+//        }
+//        return maps;
     }
 
     public List<EmployeeDepartmentDTO> getEmployeesWithDepartName2() {
