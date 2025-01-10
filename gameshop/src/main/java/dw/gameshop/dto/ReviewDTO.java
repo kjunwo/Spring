@@ -1,5 +1,7 @@
 package dw.gameshop.dto;
 
+import dw.gameshop.enums.GameRating;
+import dw.gameshop.model.Review;
 import lombok.*;
 
 @NoArgsConstructor

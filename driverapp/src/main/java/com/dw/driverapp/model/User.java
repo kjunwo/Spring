@@ -1,8 +1,11 @@
-package dw.gameshop.model;
+package com.dw.driverapp.model;
 
-import dw.gameshop.dto.UserDTO;
+import com.dw.driverapp.dto.UserDTO;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 @Entity
-@Table(name="user")
+@Table(name="사용자")
 public class User {
     @Id
     @Column(name="user_name")
@@ -22,19 +25,27 @@ public class User {
     private String email;
     @Column(name = "real_name", nullable = false)
     private String realName;
+    @Column(name="birthdate",nullable = false, unique = true)
+    private String birthdate;
     @ManyToOne
     @JoinColumn(name = "user_authority")
     private Authority authority;
     @Column(name="created_at", updatable = false)
     private LocalDateTime createdAt;
+    @Column(name="point")
+    private int point;
 
-    public UserDTO toDto() {
+
+    public UserDTO toDTO(){
         return new UserDTO(
                 this.userName,
                 null,
                 this.email,
                 this.realName,
-                authority.getAuthorityName()
+                this.birthdate,
+                authority.getAuthorityName(),
+                this.point
         );
+
     }
 }

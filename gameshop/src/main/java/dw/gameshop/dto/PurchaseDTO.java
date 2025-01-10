@@ -1,6 +1,7 @@
 package dw.gameshop.dto;
 
 import dw.gameshop.model.Game;
+import dw.gameshop.model.Purchase;
 import lombok.*;
 
 import java.time.LocalDateTime;
