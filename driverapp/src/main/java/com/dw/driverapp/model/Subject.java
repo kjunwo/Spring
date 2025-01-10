@@ -5,8 +5,8 @@ import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Setter
+@Getter
 @ToString
 @Entity
 @Table(name="과목")

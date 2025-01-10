@@ -28,10 +28,12 @@ public class Review {
     @JoinColumn(name = "user_name")
     private User user;
 
-    @Column(name="subject_point", nullable = false)
+    @ManyToOne
+    @JoinColumn(name="subject_point", nullable = false)
     private Subject point;
 
-    @Column(name="instructor_point", nullable = false)
+    @ManyToOne
+    @JoinColumn(name="instructor_point", nullable = false)
     private Instructor point1;
 
     @Column(name="review_text", columnDefinition = "TEXT")

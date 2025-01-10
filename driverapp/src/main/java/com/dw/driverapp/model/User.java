@@ -35,7 +35,6 @@ public class User {
     @Column(name="point")
     private int point;
 
-
     public UserDTO toDTO(){
         return new UserDTO(
                 this.userName,
@@ -45,6 +44,7 @@ public class User {
                 this.birthdate,
                 authority.getAuthorityName(),
                 this.point
+
         );
 
     }

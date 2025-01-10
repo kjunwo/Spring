@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="수강신청")
 public class Enrollment {
-     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name="user_name")
     private User user_fk;
-     @ManyToOne
+    @ManyToOne
     @JoinColumn(name="subject_id")
     private Subject subject_fk;
     @Column(name="purchase_time")

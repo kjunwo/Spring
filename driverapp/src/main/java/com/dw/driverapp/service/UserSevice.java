@@ -7,9 +7,12 @@ import com.dw.driverapp.model.User;
 import com.dw.driverapp.repository.AuthorityRepository;
 import com.dw.driverapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,7 +22,6 @@ public class UserSevice {
     UserRepository userRepository;
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
-
     @Autowired
     AuthorityRepository authorityRepository;
 
@@ -27,7 +29,7 @@ public class UserSevice {
         Optional<User> user = userRepository.findById(userDTO.getUserName());
         if (user.isPresent()) {
             throw new InvalidRequestException("입력하신 정보가 이미 존재합니다.");
-    }
+        }
         return userRepository.save(
                 new User(
                         userDTO.getUserName(),
@@ -35,10 +37,13 @@ public class UserSevice {
                         userDTO.getEmail(),
                         userDTO.getRealName(),
                         userDTO.getBirthdate(),
-                        authorityRepository.findById("User")
-                                .orElseThrow(()->new ResourceNotFoundException("NO ROLE")),
-                        userDTO.getPoint(),
-                        LocalDateTime.now())
-        ).toDTO();
-}
+                        authorityRepository.findById("USER")
+                                .orElseThrow(() -> new ResourceNotFoundException("NO ROLE")),
+                        LocalDateTime.now(),
+                        userDTO.getPoint())).toDTO();
+    }
+
+    public List<User> getAllUser() {
+        return userRepository.findAll();
+    }
 }
