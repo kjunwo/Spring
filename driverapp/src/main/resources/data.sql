@@ -13,6 +13,12 @@ VALUES
     ('panda', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I36/CXdEnCm', 'panda@email.com', '정강철', '1994-11-11', 'INSTRUCTOR', NOW(), 17000),
     ('eddie', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUX8I3RdLtW0P6/CXdEnCm', 'eddie@email.com', '남재우', '1995-09-21', 'INSTRUCTOR', NOW(), 19000);
 
+-- 공지사항
+INSERT INTO 공지사항 (title, content, created_date)
+VALUES
+    ('긴급 휴강 안내', '강사님의 사정으로 인해 2025.01.01은 휴강으로 조정 되었습니다.', NOW()),
+    ('새해맞이 이벤트 안내', '새해를 맞아 학업에 지친 수강생님들을 위해 조식 떡국 제공 이벤트를 진행 합니다.',NOW());
+
 --과목
 INSERT INTO 과목 (title, explanation, price, instructor_name)
 VALUES
@@ -20,6 +26,15 @@ VALUES
     ('2종 보통 면허', '2종 보통면허는 승용차, 15인 이하 승합차, 3.5톤 이하 화물차 등을 운전할 수 있는 면허입니다.',10000,'panda'),
     ('1종 대형 면허', '1종 대형면허는 10톤 이상 대형 화물차 및 버스 등 대형 차량을 운전할 수 있는 면허입니다.',10000,'eddie'),
     ('2종 소형 면허','2종 소형면허는 4륜 이륜차와 3톤 이하 화물차, 9인 이하 승합차 등을 운전할 수 있는 면허입니다.',10000,'eddie');
+
+-- 게시판
+INSERT INTO 게시판 (title,content,user_name,created_date,modified_date)
+VALUES
+    ('질문','질문있습니다','pengsoo',NOW(),NOW()),
+    ('질문','질문있습니다','totoro',NOW(),NOW());
+
+INSERT INTO 답글 (user_name, comment)
+VALUES ('pengsoo','ㅇㅇ');
 
 -- 자동차종류
 INSERT INTO 자동차종류 (name)
@@ -49,18 +64,6 @@ INSERT INTO 수강신청 (user_name, subject_id, purchase_time)
 VALUES ('fourbie', 1 ,'2025-01-02 10:00:00'),
     ('pororo', 2 ,'2025-01-02 11:00:00');
 
--- 게시판
-INSERT INTO 게시판 (title,content,user_name,created_date,modified_date)
-VALUES
-    ('질문','질문있습니다','pengsoo',NOW(),NOW()),
-    ('질문','질문있습니다','totoro',NOW(),NOW());
 
-INSERT INTO 답글 (user_name, comment)
-VALUES ('pengsoo','ㅇㅇ');
 
--- 공지사항
-INSERT INTO 공지사항 (title, content, created_date)
-VALUES
-    ('긴급 휴강 안내', '강사님의 사정으로 인해 2025.01.01은 휴강으로 조정 되었습니다.', NOW()),
-    ('새해맞이 이벤트 안내', '새해를 맞아 학업에 지친 수강생님들을 위해 조식 떡국 제공 이벤트를 진행 합니다.',NOW());
 
