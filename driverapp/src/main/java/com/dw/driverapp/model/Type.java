@@ -14,7 +14,6 @@ import java.util.List;
 @Entity
 @Table(name="자동차종류")
 public class Type {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
