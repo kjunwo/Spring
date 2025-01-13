@@ -1,19 +1,18 @@
-package com.dw.driverapp.model;
+package com.dw.gameshop.model;
 
+import com.dw.gameshop.dto.BoardDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
+@Setter
 @ToString
 @Entity
-@Table(name="게시판")
+@Table(name="board")
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +28,16 @@ public class Board {
     private LocalDateTime createdDate = LocalDateTime.now();
     @Column(name="modified_date", nullable = false)
     private LocalDateTime modifiedDate = LocalDateTime.now();
-    @OneToMany
-    @JoinColumn(name="comment_id")
-    private List<Comment>commentList = new ArrayList<>();
+    @Column(name="is_active")
+    private Boolean isActive = true;
+
+    public BoardDTO toDto() {
+        return new BoardDTO(
+                this.id,
+                this.title,
+                this.content,
+                this.author.getUserName(),
+                this.modifiedDate
+        );
+    }
 }
