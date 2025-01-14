@@ -20,7 +20,7 @@ public class Board {
     private Long id;
     @Column(name = "title", nullable = false)
     private String title;
-    @Column(name = "content", nullable = false, columnDefinition = "TEXT") // 65535 byte
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
     @ManyToOne
     @JoinColumn(name = "user_name", nullable = false)
@@ -29,7 +29,6 @@ public class Board {
     private LocalDateTime createdDate = LocalDateTime.now();
     @Column(name="modified_date", nullable = false)
     private LocalDateTime modifiedDate = LocalDateTime.now();
-    @OneToMany
-    @JoinColumn(name="comment_id")
+    @OneToMany(mappedBy = "board")
     private List<Comment>commentList = new ArrayList<>();
 }
