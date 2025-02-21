@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/시범.css">
+</head>
+<body>
+
+  <figure>
+    <div class="board">
+      <h1>Q&A게시판</h1>
+      <ul class="search">
+        <form action="/member/search" method="get">
+          제목 : <input type="text" name="text">
+          <button type="submit">검색</button>
+        </form>
+      </ul>
+
+      <ul class="title">
+        <li>번호</li>
+        <li>제목</li>
+        <li>작성자</li>
+      </ul>
+      <ul class="question">
+        <li>
+          <a href="#">
+            <span>01.</span>
+            <span>운전면허 취득 소요기간</span>
+            <span>정길수</span>
+          </a>
+          <div class="answer">
+            <p>1종 보통 운전면허 따려고 하는데 취득기간이 얼마나 걸릴까요??</p>
+          </div>
+        </li>
+        <li>
+          <a href="#">
+            <span>02.</span>
+            <span>학원은 언제다니는게 좋은가요?</span>
+            <span>김성우</span>
+          </a>
+          <div class="answer">
+            <p>겨울에 학원 다녀도 될까요? 사고 나지는 않을까요?</p>
+          </div>
+        </li>
+        <li>
+          <a href="#">
+            <span>03.</span>
+            <span>이런 운전 스킬도 배울수 있나요?</span>
+            <span>백병열</span>
+          </a>
+          <div class="answer">
+            <p>학원에서 드리프트도 알려주나요? 제가 여러가지 스킬을 배우고 싶어서 그런데 가능한가요?</p>
+          </div>
+        </li>
+        <li>
+          <a href="#">
+            <span>04.</span>
+            <span>이제 운전 면허취득하려는데 어떤가요?</span>
+            <span>강준우</span>
+          </a>
+          <div class="answer">
+            <p>올해 군대 가야하는데 2종보통을 취득하는게 좋을까요? 아니면 1종 수동을 따는게 좋을까요?</p>
+          </div>
+        </li>
+        <li>
+          <a href="#">
+            <span>05.</span>
+            <span>학원비는 어떻게 되나요?</span>
+            <span>이재훈</span>
+          </a>
+          <div class="answer">
+            <p>많이 비싼가요? 일반 학원비 생각하면 될까요? 취득하신분 있으면 알려주새요 학원관계자분도 괜찮습니다.</p>
+          </div>
+        </li>
+        <li>
+          <a href="#">
+            <span>06.</span>
+            <span>공지사항보고 궁금해서 참을 수 없어서 물어봅니다.</span>
+            <span>짱구</span>
+          </a>
+          <div class="answer">
+            <p>학원이 왜 망했나요? 이유 알려주실 수 있나요?</p>
+          </div>
+        </li>
+        <li>
+          <a href="#">
+            <span>07.</span>
+            <span>학원에는 무슨 차량이 있나요?</span>
+            <span>에디</span>
+          </a>
+          <div class="answer">
+            <p>F1 차량도 있나요? 운전해보고 싶은데..</p>
+          </div>
+        </li>
+        <li>
+          <a href="#">
+            <span>08.</span>
+            <span>중장비도 교육 해주나요??</span>
+            <span>기안</span>
+          </a>
+          <div class="answer">
+            <p>굴착기 운전하고 싶은데 가능한가요??</p>
+          </div>
+        </li>
+        <li>
+          <a href="#">
+            <span>09.</span>
+            <span>교육차량에 에어컨 또는 히터 나오나요?</span>
+            <span>곽두칠</span>
+          </a>
+          <div class="answer">
+            <p>제가 더위랑 추위에 약해서 운전 할 때 꼭 필요합니다.</p>
+          </div>
+        </li>
+      </ul>
+      <a class="post">등록</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $('a').click(function () {
+    var answer = $(this).next('.answer');  // 클릭된 a의 다음 형제인 .answer
+    if (answer.width() === 0 && answer.height() === 0) {
+        // 답변이 숨겨져 있으면, width와 height를 늘리고, opacity를 1로 변경
+        answer.css({
+            width: '100%',  // 넓이를 100%로 확장
+            height: 'auto', // 높이를 자동으로 설정
+            opacity: 1
+        });
+    } else {
+        // 이미 열려 있으면, width와 height를 0으로 줄이고, opacity를 0으로 설정
+        answer.css({
+            width: '0',
+            height: '0',
+            opacity: 0
+        });
+    }
+});
+
+    </script>
+  </figure>
+</body>
+</html>
